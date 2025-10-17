@@ -145,7 +145,7 @@ def display_code_context(code_context: dict):
         function_name = ctx.get('function', 'unknown')
         error_line = ctx.get('error_line', 'unknown')
         
-        with st.expander(f"📄 {file_name} - Function: `{function_name}`", expanded=True):
+        with st.expander(f"📄 {file_name} - Function: `{function_name}`", expanded=False):
             st.markdown(f"**Error at line {error_line}**")
             
             # Display code with highlighting
