@@ -9,6 +9,7 @@ Congratulations! Your POC is ready to rock! 🚀
 ## 📦 What You've Got
 
 ### ✅ Complete Working Application
+
 - **Streamlit UI**: Beautiful, interactive dashboard
 - **LangChain + GPT-4**: AI-powered log analysis
 - **Code Mapping**: Automatic error-to-code linking
@@ -16,12 +17,14 @@ Congratulations! Your POC is ready to rock! 🚀
 - **Banking Theme**: Realistic payment system scenarios
 
 ### ✅ Realistic Demo Data
+
 - **3 Error Scenarios**: Deadlocks, pool exhaustion, combined failures
 - **Sample Codebase**: Payment processing with SQL transactions
 - **System Metrics**: Performance data with anomalies
 - **Detailed Logs**: Stack traces, errors, warnings
 
 ### ✅ Documentation
+
 - **README.md**: Professional project documentation
 - **QUICKSTART.md**: Step-by-step guide for beginners
 - **DEMO_SCRIPT.md**: Complete presentation guide
@@ -32,18 +35,21 @@ Congratulations! Your POC is ready to rock! 🚀
 ## 🚀 Getting Started (RIGHT NOW!)
 
 ### Step 1: Setup (2 minutes)
+
 ```bash
 cd /Users/abhaygupta/Desktop/GenAI-Powered-Live-Environment-Assistant
 ./setup.sh
 ```
 
 ### Step 2: Add Your API Key (1 minute)
+
 ```bash
 nano .env
 # Add your OpenAI API key
 ```
 
 ### Step 3: Run! (30 seconds)
+
 ```bash
 ./run.sh
 ```
@@ -55,6 +61,7 @@ Your browser should open to `http://localhost:8501` 🎊
 ## 🎯 Your 10-Hour Plan
 
 ### ✅ Already Done (4 hours)
+
 - ✅ Project structure created
 - ✅ Dummy data generated
 - ✅ Code mapping implemented
@@ -65,41 +72,50 @@ Your browser should open to `http://localhost:8501` 🎊
 ### 🔥 Next 6 Hours (Split Between 2 Devs)
 
 #### Dev 1: Backend & AI (3 hours)
+
 **Hour 1: Enhance AI Analysis**
+
 - File: `src/agents/log_analyzer.py`
 - Improve prompts for better analysis
 - Add banking-specific keywords
 - Test different temperature settings
 
 **Hour 2: Add More Scenarios**
+
 - Create 2-3 new error scenarios
 - Add to `dummy_data/logs/`
 - Examples: Circuit breaker, rate limiting, data corruption
 
 **Hour 3: Metrics & Visualization**
+
 - Enhance `src/utils/anomaly_detector.py`
 - Add threshold detection
 - Create metric charts
 
 #### Dev 2: Frontend & UX (3 hours)
+
 **Hour 1: Enhance UI**
+
 - File: `app.py`
 - Add timeline visualization
 - Improve code highlighting
 - Add metric charts
 
 **Hour 2: Add Features**
+
 - Export analysis as PDF
 - Add comparison view
 - Implement chat interface
 
 **Hour 3: Polish & Test**
+
 - Test all scenarios
 - Fix bugs
 - Improve error handling
 - Add loading states
 
 #### Both Devs: Final Polish (2-3 hours)
+
 - Integration testing
 - Prepare demo script
 - Practice presentation
@@ -149,6 +165,7 @@ GenAI-Powered-Live-Environment-Assistant/
 ## 🎮 How to Use
 
 ### Basic Flow:
+
 1. **Open the app** → Browser opens to dashboard
 2. **Enter API key** → In sidebar
 3. **Select scenario** → Choose from 3 pre-built scenarios
@@ -156,6 +173,7 @@ GenAI-Powered-Live-Environment-Assistant/
 5. **Review results** → See logs, code, AI analysis
 
 ### What You'll See:
+
 - **Left Column**: Error logs + Anomalies
 - **Right Column**: Code context with highlighting
 - **Bottom**: Complete AI analysis with tabs
@@ -167,12 +185,14 @@ GenAI-Powered-Live-Environment-Assistant/
 ### Add New Error Scenario
 
 **1. Create Log File** (`dummy_data/logs/new_error.log`):
+
 ```log
 2024-10-17 14:00:00,000 ERROR [your_file.py:123] Your error message
 Traceback...
 ```
 
 **2. Update UI** (`app.py`):
+
 ```python
 scenario = st.selectbox(
     "Select Error Scenario",
@@ -187,6 +207,7 @@ scenario = st.selectbox(
 ### Modify AI Prompts
 
 Edit `src/agents/log_analyzer.py`:
+
 ```python
 SYSTEM_PROMPT = """You are an expert...
 Add your custom instructions here!
@@ -196,6 +217,7 @@ Add your custom instructions here!
 ### Change UI Styling
 
 Edit `app.py` CSS section:
+
 ```python
 st.markdown("""
 <style>
@@ -209,16 +231,19 @@ st.markdown("""
 ## 💡 Cool Features to Demo
 
 1. **Code Highlighting** 🎨
+
    - Shows exact line causing error
    - Full context around the issue
 
 2. **AI Analysis** 🤖
+
    - Root cause explanation
    - Business impact assessment
    - Immediate fix recommendations
    - Prevention strategies
 
 3. **Anomaly Detection** ⚠️
+
    - Connection pool exhaustion
    - Lock timeouts
    - Performance degradation
@@ -234,16 +259,19 @@ st.markdown("""
 ## 🎤 Demo Talking Points
 
 ### Opening Hook:
+
 "Imagine it's 3 AM, payments are failing, and your team is losing $10,000 per minute. This tool finds the problem in seconds, not hours."
 
 ### Key Benefits:
-- ⏱️  **Saves Time**: Hours → Minutes
+
+- ⏱️ **Saves Time**: Hours → Minutes
 - 💰 **Saves Money**: Faster fixes = less downtime
 - 🎯 **Accurate**: AI understands context
 - 📚 **Educational**: Explains WHY, not just WHAT
 - 🔄 **Preventive**: Suggests future improvements
 
 ### Wow Moments:
+
 1. Show the instant code mapping
 2. Highlight the AI explaining a complex deadlock
 3. Show anomaly detection catching issues early
@@ -254,23 +282,27 @@ st.markdown("""
 ## 🐛 Troubleshooting
 
 ### "Module not found"
+
 ```bash
 source venv/bin/activate
 pip install -r requirements.txt
 ```
 
 ### "OpenAI API Error"
+
 - Check `.env` file has correct API key
 - Verify you have credits in OpenAI account
 - Try `export OPENAI_API_KEY=your-key-here`
 
 ### "Streamlit won't start"
+
 ```bash
 pkill -f streamlit  # Kill existing instances
 streamlit run app.py
 ```
 
 ### "Changes not showing"
+
 - Hard refresh browser (Cmd+Shift+R)
 - Check "Always rerun" in Streamlit
 
@@ -279,6 +311,7 @@ streamlit run app.py
 ## 🚀 Deployment Options
 
 ### Option 1: Streamlit Cloud (Easiest)
+
 1. Push to GitHub
 2. Go to share.streamlit.io
 3. Connect repo
@@ -286,6 +319,7 @@ streamlit run app.py
 5. Deploy! (Free!)
 
 ### Option 2: Docker
+
 ```dockerfile
 FROM python:3.9
 COPY . /app
@@ -295,6 +329,7 @@ CMD ["streamlit", "run", "app.py"]
 ```
 
 ### Option 3: AWS/Azure
+
 - Use EC2/App Service
 - Set up reverse proxy
 - Configure SSL
@@ -304,13 +339,13 @@ CMD ["streamlit", "run", "app.py"]
 
 ## 📊 Tech Stack Summary
 
-| Component | Technology | Purpose |
-|-----------|-----------|---------|
-| **Frontend** | Streamlit | Interactive UI |
-| **AI/LLM** | GPT-4 Turbo | Log analysis |
-| **Framework** | LangChain | AI orchestration |
-| **Language** | Python 3.9+ | Backend |
-| **Data** | Pandas, JSON | Data processing |
+| Component         | Technology     | Purpose           |
+| ----------------- | -------------- | ----------------- |
+| **Frontend**      | Streamlit      | Interactive UI    |
+| **AI/LLM**        | GPT-4 Turbo    | Log analysis      |
+| **Framework**     | LangChain      | AI orchestration  |
+| **Language**      | Python 3.9+    | Backend           |
+| **Data**          | Pandas, JSON   | Data processing   |
 | **Visualization** | Plotly, Altair | Charts (optional) |
 
 ---
@@ -318,6 +353,7 @@ CMD ["streamlit", "run", "app.py"]
 ## 🎯 Success Criteria
 
 ### Must Have (All Done! ✅)
+
 - ✅ Log analysis working
 - ✅ Code mapping functional
 - ✅ AI providing insights
@@ -325,6 +361,7 @@ CMD ["streamlit", "run", "app.py"]
 - ✅ Demo scenarios ready
 
 ### Nice to Have (If Time)
+
 - ⏳ Timeline visualization
 - ⏳ Export to PDF
 - ⏳ Comparison view
@@ -345,16 +382,19 @@ CMD ["streamlit", "run", "app.py"]
 ## 🎓 Learning Resources
 
 ### Streamlit
+
 - [Official Docs](https://docs.streamlit.io)
 - [Gallery](https://streamlit.io/gallery)
 - [Cheat Sheet](https://docs.streamlit.io/library/cheatsheet)
 
 ### LangChain
+
 - [Getting Started](https://python.langchain.com/docs/get_started/introduction)
 - [Use Cases](https://python.langchain.com/docs/use_cases/)
 - [OpenAI Integration](https://python.langchain.com/docs/integrations/llms/openai)
 
 ### OpenAI
+
 - [API Docs](https://platform.openai.com/docs/introduction)
 - [GPT-4 Guide](https://platform.openai.com/docs/models/gpt-4)
 - [Best Practices](https://platform.openai.com/docs/guides/prompt-engineering)
@@ -364,11 +404,13 @@ CMD ["streamlit", "run", "app.py"]
 ## 🤝 Collaboration Tips (2 Devs)
 
 ### Communication
+
 - Daily sync: 10 min standup
 - Share progress in shared doc
 - Quick Slack/messages for blockers
 
 ### Version Control
+
 ```bash
 # Dev 1: Work on backend branch
 git checkout -b feature/ai-improvements
@@ -380,6 +422,7 @@ git checkout -b feature/ui-enhancements
 ```
 
 ### Division of Work
+
 - **Dev 1 (Backend)**: AI, data, logic
 - **Dev 2 (Frontend)**: UI, UX, visualizations
 - **Both**: Testing, demo prep
@@ -396,6 +439,7 @@ Everything is set up and ready to go. Here's your immediate next steps:
 4. **In 5 minutes**: See your first analysis!
 
 ### Then:
+
 - Explore the code
 - Try all 3 scenarios
 - Read QUICKSTART.md
@@ -407,6 +451,7 @@ Everything is set up and ready to go. Here's your immediate next steps:
 ## 💪 Remember
 
 You've built a **production-grade POC** that:
+
 - Uses cutting-edge AI (GPT-4)
 - Solves real business problems
 - Has professional documentation
@@ -420,6 +465,7 @@ Now go build something awesome! 🚀
 ---
 
 **Questions? Check these files:**
+
 - Technical: `QUICKSTART.md`
 - Presentation: `DEMO_SCRIPT.md`
 - Overview: `README.md`

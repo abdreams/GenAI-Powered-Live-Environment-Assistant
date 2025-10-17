@@ -22,6 +22,7 @@ Complete guide to set up Azure OpenAI for the GenAI Live Environment Assistant
 3. **Click "Create"** or **"+ Create"**
 
 4. **Fill in the details**:
+
    ```
    Subscription: [Your Subscription]
    Resource Group: [Create new or select existing]
@@ -41,6 +42,7 @@ Complete guide to set up Azure OpenAI for the GenAI Live Environment Assistant
 1. **Open your Azure OpenAI resource** (from the deployment notification or resource list)
 
 2. **Click "Go to Azure OpenAI Studio"** button
+
    - Or visit: https://oai.azure.com/
 
 3. **Navigate to "Deployments"** (left sidebar)
@@ -48,6 +50,7 @@ Complete guide to set up Azure OpenAI for the GenAI Live Environment Assistant
 4. **Click "Create new deployment"** or **"+ Create"**
 
 5. **Configure deployment**:
+
    ```
    Model: gpt-4 (or gpt-4-turbo if available)
    Deployment name: gpt-4
@@ -80,15 +83,17 @@ Complete guide to set up Azure OpenAI for the GenAI Live Environment Assistant
 1. Same page as above (**Keys and Endpoint**)
 
 2. **Copy the Endpoint URL**
+
    ```
    Example: https://my-genai-assistant.openai.azure.com/
    ```
-   
+
    ⚠️ **Important**: Must end with `/`
 
 #### C. Get API Version
 
 Use the latest stable version:
+
 ```
 2024-02-15-preview
 ```
@@ -102,29 +107,33 @@ Or check: https://learn.microsoft.com/en-us/azure/ai-services/openai/reference
 ### Option 1: Using .env File (Recommended)
 
 1. **Navigate to project directory**:
+
    ```bash
    cd /Users/abhaygupta/Desktop/GenAI-Powered-Live-Environment-Assistant
    ```
 
 2. **Edit the .env file**:
+
    ```bash
    nano .env
    ```
-   
+
    Or if .env doesn't exist:
+
    ```bash
    cp .env.example .env
    nano .env
    ```
 
 3. **Add your Azure credentials**:
+
    ```env
    # Azure OpenAI Configuration
    AZURE_OPENAI_API_KEY=1a2b3c4d5e6f7g8h9i0j1k2l3m4n5o6p
    AZURE_OPENAI_ENDPOINT=https://my-genai-assistant.openai.azure.com/
    AZURE_OPENAI_DEPLOYMENT_NAME=gpt-4
    AZURE_OPENAI_API_VERSION=2024-02-15-preview
-   
+
    # Application Settings
    APP_TITLE=GenAI Live Environment Assistant
    LOG_LEVEL=INFO
@@ -138,6 +147,7 @@ Or check: https://learn.microsoft.com/en-us/azure/ai-services/openai/reference
 ### Option 2: Using the UI (Alternative)
 
 When you run the app, enter credentials in the sidebar:
+
 - API Key
 - Endpoint
 - Deployment Name
@@ -149,12 +159,14 @@ When you run the app, enter credentials in the sidebar:
 ### Test Your Configuration
 
 1. **Run the application**:
+
    ```bash
    source venv/bin/activate
    streamlit run app.py
    ```
 
 2. **Check if credentials load**:
+
    - Open browser at http://localhost:8501
    - Sidebar should show your endpoint (if using .env)
    - Or enter manually in the sidebar
@@ -199,6 +211,7 @@ Save this for quick access:
 **Problem**: Wrong endpoint or deployment name
 
 **Solution**:
+
 1. Check endpoint in Azure Portal > Keys and Endpoint
 2. Verify deployment name in Azure OpenAI Studio > Deployments
 3. Ensure endpoint ends with `/`
@@ -208,6 +221,7 @@ Save this for quick access:
 **Problem**: Wrong API key
 
 **Solution**:
+
 1. Go to Azure Portal > Your Resource > Keys and Endpoint
 2. Copy KEY 1 again (ensure no spaces)
 3. Update .env file
@@ -217,6 +231,7 @@ Save this for quick access:
 **Problem**: Deployment name doesn't match
 
 **Solution**:
+
 1. Go to https://oai.azure.com/
 2. Click "Deployments"
 3. Check exact name of your GPT-4 deployment
@@ -227,6 +242,7 @@ Save this for quick access:
 **Problem**: Too many requests
 
 **Solution**:
+
 1. Wait a few seconds and try again
 2. Check your quota in Azure OpenAI Studio
 3. Increase tokens per minute limit in deployment settings
@@ -237,6 +253,7 @@ Save this for quick access:
 
 **Solution**:
 Update to latest version:
+
 ```env
 AZURE_OPENAI_API_VERSION=2024-02-15-preview
 ```
@@ -248,12 +265,14 @@ AZURE_OPENAI_API_VERSION=2024-02-15-preview
 ### How Much Will This Cost?
 
 Azure OpenAI pricing (as of Oct 2024):
+
 - **GPT-4**: ~$0.03 per 1K input tokens, ~$0.06 per 1K output tokens
 - **Per analysis**: ~$0.02-0.05 (depending on log size)
 
 ### Your Free Credits
 
 If you have free credits:
+
 - Track usage in Azure Portal > Cost Management
 - Set up budget alerts
 - Monitor in Azure OpenAI Studio > Quotas
@@ -287,12 +306,15 @@ If you have free credits:
 ## 🔐 Security Best Practices
 
 1. **Never commit .env to Git**
+
    - Already in .gitignore ✅
 
 2. **Regenerate keys if exposed**
+
    - Azure Portal > Keys and Endpoint > Regenerate
 
 3. **Use different keys for dev/prod**
+
    - Create separate deployments
 
 4. **Set up budget alerts**
@@ -329,14 +351,17 @@ Before running the app, verify:
 ### Common Issues:
 
 **Can't find Azure OpenAI in portal?**
+
 - Search for "Azure OpenAI" or "Cognitive Services"
 - You may need to request access first
 
 **Don't have GPT-4 access?**
+
 - Try GPT-3.5-turbo (works but less accurate)
 - Request GPT-4 access via Azure OpenAI Studio
 
 **Free credits not showing?**
+
 - Check your subscription in Azure Portal
 - Verify you have an active sponsorship or trial
 

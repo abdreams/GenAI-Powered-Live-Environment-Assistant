@@ -32,28 +32,33 @@ An intelligent assistant that helps DevOps and engineering teams quickly identif
 ## 🚀 Quick Start
 
 ### Prerequisites
+
 - Python 3.9 or higher
 - Azure OpenAI access with GPT-4 deployment
 
 ### Installation
 
 1. **Clone the repository**
+
 ```bash
 cd GenAI-Powered-Live-Environment-Assistant
 ```
 
 2. **Create virtual environment**
+
 ```bash
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 3. **Install dependencies**
+
 ```bash
 pip install -r requirements.txt
 ```
 
 4. **Set up Azure OpenAI credentials**
+
 ```bash
 cp .env.example .env
 # Edit .env and add your Azure OpenAI credentials
@@ -61,12 +66,13 @@ cp .env.example .env
 ```
 
 5. **Run the application**
+
 ```bash
 streamlit run app.py
 ```
 
 6. **Open your browser**
-Navigate to `http://localhost:8501`
+   Navigate to `http://localhost:8501`
 
 ## 📁 Project Structure
 
@@ -118,12 +124,15 @@ GenAI-Powered-Live-Environment-Assistant/
 ## 📊 Demo Scenarios
 
 ### Scenario 1: SQL Transaction Deadlock
+
 Payment processing fails due to database deadlock between concurrent transactions.
 
 ### Scenario 2: Connection Pool Exhaustion
+
 High load causes database connection pool to be exhausted, leading to timeouts.
 
 ### Scenario 3: Lock Timeout
+
 Long-running transaction holds locks causing other transactions to timeout.
 
 ## 🔮 Future Enhancements

@@ -3,6 +3,7 @@
 ## Issue Resolved: AzureChatOpenAI Initialization Error
 
 ### ❌ Error Message:
+
 ```
 Client.__init__() got an unexpected keyword argument 'proxies'
 ```
@@ -10,6 +11,7 @@ Client.__init__() got an unexpected keyword argument 'proxies'
 ### ✅ Solution Applied:
 
 **1. Updated Package Versions:**
+
 ```
 langchain: 0.1.0 → 0.1.20
 langchain-openai: 0.0.2 → 0.1.8
@@ -18,6 +20,7 @@ openai: 1.6.1 → 1.35.0
 
 **2. Updated Parameter Names:**
 Changed AzureChatOpenAI initialization from:
+
 ```python
 # OLD (caused error)
 AzureChatOpenAI(
@@ -31,6 +34,7 @@ AzureChatOpenAI(
 ```
 
 To:
+
 ```python
 # NEW (works correctly)
 AzureChatOpenAI(
@@ -44,14 +48,17 @@ AzureChatOpenAI(
 ```
 
 ### 📋 What Changed:
+
 - `openai_api_key` → `api_key`
 - `openai_api_version` → `api_version`
 - `deployment_name` → `azure_deployment`
 
 ### ✅ Status:
+
 **FIXED!** The application should now work correctly with Azure OpenAI.
 
 ### 🧪 Test It:
+
 ```bash
 streamlit run app.py
 ```

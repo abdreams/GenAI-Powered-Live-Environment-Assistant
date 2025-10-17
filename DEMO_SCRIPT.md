@@ -1,10 +1,13 @@
 # Demo Script for Presentation
 
 ## Introduction (1 minute)
+
 "Hello! Today I'll demonstrate our GenAI-Powered Live Environment Assistant - a tool that helps DevOps teams quickly identify and fix production issues by automatically mapping error logs to code and providing AI-powered analysis."
 
 ## The Problem (1 minute)
+
 "In production environments, especially in banking systems:
+
 - Errors happen in logs
 - Stack traces span multiple files
 - Finding the root cause takes hours
@@ -18,11 +21,13 @@ Traditional approach: Manual log searching, reading code, correlating events. Ti
 ### Scenario 1: Database Deadlock (3 minutes)
 
 **Setup:**
+
 1. Open the application
 2. Select "Scenario 1: SQL Lock Timeout & Deadlock"
 3. Click "Analyze Error"
 
 **Demonstrate:**
+
 - Point out the error logs on the left
 - Show the stack trace
 - **Highlight the code mapping** - "See how it automatically identified the exact line causing the issue?"
@@ -30,6 +35,7 @@ Traditional approach: Manual log searching, reading code, correlating events. Ti
 - Point out the root cause, impact, and fix recommendations
 
 **Key Points:**
+
 - "The system detected a deadlock between two transactions"
 - "It identified the exact function: `execute_transaction` at line 91"
 - "AI explains WHY it happened - two transactions waiting for each other's locks"
@@ -38,16 +44,19 @@ Traditional approach: Manual log searching, reading code, correlating events. Ti
 ### Scenario 2: Connection Pool Exhaustion (3 minutes)
 
 **Setup:**
+
 1. Select "Scenario 2: Connection Pool Exhaustion"
 2. Click "Analyze Error"
 
 **Demonstrate:**
+
 - Show the anomaly detection - "10/10 connections in use"
 - Point out the metrics showing degradation
 - Show how AI mapped it to `get_connection` method
 - Discuss the business impact: "Failed payments = lost revenue"
 
 **Key Points:**
+
 - "System detected connection pool at 100%"
 - "Anomaly detector flagged this BEFORE it became critical"
 - "AI recommends: increase pool size, implement connection timeouts, add circuit breakers"
@@ -55,6 +64,7 @@ Traditional approach: Manual log searching, reading code, correlating events. Ti
 ### Scenario 3: Combined Analysis (2 minutes)
 
 **Quick demo showing multiple issues:**
+
 - Multiple anomalies detected
 - Timeline of events
 - Cascading failures
@@ -63,6 +73,7 @@ Traditional approach: Manual log searching, reading code, correlating events. Ti
 ## Architecture Overview (2 minutes)
 
 Show the tech stack:
+
 - **Streamlit**: Interactive UI
 - **LangChain + GPT-4**: Intelligent analysis
 - **Python**: Backend processing
@@ -109,6 +120,7 @@ A: "GPT-4 API calls cost ~$0.01-0.05 per analysis. Given it saves hours of engin
 ## Demo Tips
 
 ✅ **DO:**
+
 - Speak confidently about the tech
 - Emphasize time savings
 - Show the code mapping feature - it's the coolest part!
@@ -116,6 +128,7 @@ A: "GPT-4 API calls cost ~$0.01-0.05 per analysis. Given it saves hours of engin
 - Point out specific line numbers and functions
 
 ❌ **DON'T:**
+
 - Get lost in technical details
 - Apologize for it being "just a POC"
 - Ignore questions
@@ -124,14 +137,16 @@ A: "GPT-4 API calls cost ~$0.01-0.05 per analysis. Given it saves hours of engin
 ## Backup Plan
 
 If something breaks:
+
 1. Have screenshots ready
 2. Explain what it WOULD show
 3. Show the code instead
 4. Walk through the dummy data
 
 ## Time Allocation
+
 - Introduction: 1 min
-- Problem: 1 min  
+- Problem: 1 min
 - Demo: 8 min
 - Architecture: 2 min
 - Features: 1 min
