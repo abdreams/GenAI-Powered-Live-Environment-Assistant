@@ -24,7 +24,8 @@ class CodeMapper:
         
         for file_path in codebase_path.glob("**/*.py"):
             with open(file_path, 'r') as f:
-                relative_path = str(file_path.relative_to(codebase_path.parent))
+                # Store with path relative to project root (includes dummy_data/codebase/)
+                relative_path = str(file_path.relative_to(codebase_path.parent.parent))
                 self.file_cache[relative_path] = {
                     'content': f.read(),
                     'lines': open(file_path, 'r').readlines()

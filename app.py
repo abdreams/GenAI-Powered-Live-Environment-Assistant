@@ -79,6 +79,10 @@ def initialize_session_state():
         st.session_state.current_analysis = None
     if 'code_context' not in st.session_state:
         st.session_state.code_context = None
+    if 'anomalies' not in st.session_state:
+        st.session_state.anomalies = None
+    if 'log_content' not in st.session_state:
+        st.session_state.log_content = None
 
 
 def load_log_file(log_path: str) -> str:
@@ -128,20 +132,32 @@ def display_code_context(code_context: dict):
     st.markdown("### 💻 Code Context")
     
     if not code_context or not code_context.get('code_contexts'):
-        st.warning("No code context available")
+        st.info("ℹ️ No specific code context mapped. The error may not contain a stack trace, or the files may not be in the codebase directory.")
         return
     
     for ctx in code_context['code_contexts']:
-        with st.expander(f"📄 {ctx['file']} - Function: `{ctx.get('function', 'unknown')}`", expanded=True):
-            st.markdown(f"**Error at line {ctx['error_line']}**")
+        file_name = ctx.get('file', 'unknown')
+        function_name = ctx.get('function', 'unknown')
+        error_line = ctx.get('error_line', 'unknown')
+        
+        with st.expander(f"📄 {file_name} - Function: `{function_name}`", expanded=True):
+            st.markdown(f"**Error at line {error_line}**")
             
             # Display code with highlighting
-            for line in ctx['snippet']:
-                if line['is_error']:
-                    st.markdown(f"<div class='code-highlight'>❌ Line {line['line_num']}: {line['content']}</div>", 
-                              unsafe_allow_html=True)
-                else:
-                    st.code(f"Line {line['line_num']}: {line['content']}", language='python')
+            snippet = ctx.get('snippet', [])
+            if snippet:
+                for line in snippet:
+                    line_num = line.get('line_num', '?')
+                    content = line.get('content', '')
+                    is_error = line.get('is_error', False)
+                    
+                    if is_error:
+                        st.markdown(f"<div class='code-highlight'>❌ Line {line_num}: {content}</div>", 
+                                  unsafe_allow_html=True)
+                    else:
+                        st.code(f"Line {line_num}: {content}", language='python')
+            else:
+                st.warning("No code snippet available")
 
 
 def display_ai_analysis(analysis: dict):
@@ -204,8 +220,19 @@ def display_anomalies(anomalies: dict):
     # List anomalies
     for anomaly in anomalies.get('anomalies', [])[:10]:
         severity = anomaly.get('severity', 'UNKNOWN')
-        message = anomaly.get('message', 'Unknown anomaly')
-        time = anomaly.get('time', 'unknown')
+        
+        # Build message from available fields
+        if 'message' in anomaly:
+            message = anomaly['message']
+        elif 'keyword' in anomaly:
+            message = f"Detected '{anomaly['keyword']}' pattern in logs"
+        elif 'line' in anomaly:
+            message = anomaly['line'][:100]  # Truncate long lines
+        else:
+            message = f"{anomaly.get('type', 'Unknown')} anomaly"
+        
+        # Get timestamp
+        time = anomaly.get('time') or anomaly.get('timestamp', 'unknown')
         
         severity_class = f"anomaly-{severity.lower()}"
         st.markdown(f"<span class='{severity_class}'>🔴 [{severity}]</span> {message} (at {time})", 
@@ -345,17 +372,20 @@ def main():
                 st.code(traceback.format_exc())
     
     # Display results if analysis is done
-    if st.session_state.analysis_done:
+    if st.session_state.analysis_done and st.session_state.anomalies:
         # Create two columns
         col1, col2 = st.columns([1, 1])
         
         with col1:
-            display_error_log(st.session_state.log_content)
+            if st.session_state.log_content:
+                display_error_log(st.session_state.log_content)
             st.markdown("---")
-            display_anomalies(st.session_state.anomalies)
+            if st.session_state.anomalies:
+                display_anomalies(st.session_state.anomalies)
         
         with col2:
-            display_code_context(st.session_state.code_context)
+            if st.session_state.code_context:
+                display_code_context(st.session_state.code_context)
         
         st.markdown("---")
         display_ai_analysis(st.session_state.current_analysis)
