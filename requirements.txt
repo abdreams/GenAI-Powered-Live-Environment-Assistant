@@ -1,0 +1,23 @@
+# Core Framework
+streamlit==1.29.0
+python-dotenv==1.0.0
+
+# LangChain and Azure OpenAI - Compatible versions
+langchain==0.3.27
+langchain-openai==0.3.35
+langchain-core==0.3.79
+langchain-community==0.3.31
+openai==2.4.0
+azure-identity==1.15.0
+
+# Data Processing
+pandas==2.1.4
+numpy==1.26.2
+
+# Visualization
+plotly==5.18.0
+altair==5.2.0
+
+# Utilities
+pyyaml==6.0.1
+Pygments==2.17.2

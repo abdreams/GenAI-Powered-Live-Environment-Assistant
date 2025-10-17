@@ -1,0 +1,95 @@
+2024-10-17 09:15:23,145 INFO [payment_service.py:16] PaymentService initialized
+2024-10-17 09:15:45,234 INFO [payment_service.py:27] Processing payment PMT20241017091545: $15000.00 from ACC10234 to ACC20567
+2024-10-17 09:15:45,245 DEBUG [database_manager.py:45] Fetching balance for account ACC10234
+2024-10-17 09:15:45,246 DEBUG [database_manager.py:50] Connection acquired. Active connections: 1
+2024-10-17 09:15:45,247 DEBUG [database_manager.py:52] Executing query: SELECT balance FROM accounts WHERE account_number = 'ACC10234' FOR UPDATE
+2024-10-17 09:15:45,260 INFO [transaction_handler.py:24] Executing transfer PMT20241017091545: $15000.00 from ACC10234 to ACC20567
+2024-10-17 09:15:45,265 DEBUG [transaction_handler.py:31] Current balances - From: $50000.0, To: $50000.0
+2024-10-17 09:15:45,270 INFO [database_manager.py:79] Starting transaction with 3 queries, isolation=SERIALIZABLE
+2024-10-17 09:15:45,271 DEBUG [database_manager.py:84] BEGIN TRANSACTION
+2024-10-17 09:15:45,272 DEBUG [database_manager.py:87] Executing query 1/3: UPDATE accounts SET balance = 35000.0, last_updated = NOW() WHERE account_number = 'ACC10...
+2024-10-17 09:15:45,285 DEBUG [database_manager.py:99] Lock released
+2024-10-17 09:15:45,286 DEBUG [database_manager.py:87] Executing query 2/3: UPDATE accounts SET balance = 65000.0, last_updated = NOW() WHERE account_number = 'ACC20...
+2024-10-17 09:15:57,301 ERROR [database_manager.py:93] Lock timeout after 12.02s for query: UPDATE accounts SET balance = 65000.0, last_updated = NOW() WHERE account_number = 'ACC20
+2024-10-17 09:15:57,305 ERROR [database_manager.py:105] Transaction failed: Lock acquisition timeout on query 2
+Traceback (most recent call last):
+  File "/app/dummy_data/codebase/database_manager.py", line 91, in execute_transaction
+    acquired = self._acquire_lock(query, timeout=self.LOCK_TIMEOUT)
+  File "/app/dummy_data/codebase/database_manager.py", line 114, in _acquire_lock
+    raise Exception(f"Lock acquisition timeout on query {i+1}")
+Exception: Lock acquisition timeout on query 2
+2024-10-17 09:15:57,306 DEBUG [database_manager.py:106] ROLLBACK TRANSACTION
+2024-10-17 09:15:57,310 ERROR [transaction_handler.py:63] Transfer PMT20241017091545 failed: Lock acquisition timeout on query 2
+Traceback (most recent call last):
+  File "/app/dummy_data/codebase/transaction_handler.py", line 49, in execute_transfer
+    self.db_manager.execute_transaction(queries, isolation_level="SERIALIZABLE")
+  File "/app/dummy_data/codebase/database_manager.py", line 91, in execute_transaction
+    acquired = self._acquire_lock(query, timeout=self.LOCK_TIMEOUT)
+Exception: Lock acquisition timeout on query 2
+2024-10-17 09:15:57,315 ERROR [payment_service.py:44] Error processing payment PMT20241017091545: Lock acquisition timeout on query 2
+Traceback (most recent call last):
+  File "/app/dummy_data/codebase/payment_service.py", line 37, in process_payment
+    result = self.transaction_handler.execute_transfer(
+  File "/app/dummy_data/codebase/transaction_handler.py", line 49, in execute_transfer
+    self.db_manager.execute_transaction(queries, isolation_level="SERIALIZABLE")
+  File "/app/dummy_data/codebase/database_manager.py", line 91, in execute_transaction
+    acquired = self._acquire_lock(query, timeout=self.LOCK_TIMEOUT)
+Exception: Lock acquisition timeout on query 2
+
+2024-10-17 09:16:12,445 INFO [payment_service.py:27] Processing payment PMT20241017091612: $8500.50 from ACC10345 to ACC20678
+2024-10-17 09:16:12,448 DEBUG [database_manager.py:45] Fetching balance for account ACC10345
+2024-10-17 09:16:12,450 DEBUG [database_manager.py:50] Connection acquired. Active connections: 8
+2024-10-17 09:16:12,455 INFO [transaction_handler.py:24] Executing transfer PMT20241017091612: $8500.50 from ACC10345 to ACC20678
+2024-10-17 09:16:42,460 ERROR [database_manager.py:36] Connection pool exhausted - timeout waiting for connection
+Traceback (most recent call last):
+  File "/app/dummy_data/codebase/database_manager.py", line 35, in get_connection
+    raise Exception("Connection pool exhausted")
+Exception: Connection pool exhausted
+2024-10-17 09:16:42,465 ERROR [transaction_handler.py:63] Transfer PMT20241017091612 failed: Connection pool exhausted
+Traceback (most recent call last):
+  File "/app/dummy_data/codebase/transaction_handler.py", line 27, in execute_transfer
+    balance_from = self.db_manager.get_account_balance(account_from)
+  File "/app/dummy_data/codebase/database_manager.py", line 47, in get_account_balance
+    with self.get_connection() as conn:
+  File "/app/dummy_data/codebase/database_manager.py", line 35, in get_connection
+    raise Exception("Connection pool exhausted")
+Exception: Connection pool exhausted
+2024-10-17 09:16:42,470 ERROR [payment_service.py:44] Error processing payment PMT20241017091612: Connection pool exhausted
+Traceback (most recent call last):
+  File "/app/dummy_data/codebase/payment_service.py", line 37, in process_payment
+    result = self.transaction_handler.execute_transfer(
+  File "/app/dummy_data/codebase/transaction_handler.py", line 27, in execute_transfer
+    balance_from = self.db_manager.get_account_balance(account_from)
+  File "/app/dummy_data/codebase/database_manager.py", line 47, in get_account_balance
+    with self.get_connection() as conn:
+Exception: Connection pool exhausted
+
+2024-10-17 09:17:23,890 INFO [payment_service.py:27] Processing payment PMT20241017091723: $25000.00 from ACC10456 to ACC20789
+2024-10-17 09:17:23,895 DEBUG [database_manager.py:45] Fetching balance for account ACC10456
+2024-10-17 09:17:23,900 INFO [transaction_handler.py:24] Executing transfer PMT20241017091723: $25000.00 from ACC10456 to ACC20789
+2024-10-17 09:17:23,905 INFO [database_manager.py:79] Starting transaction with 3 queries, isolation=SERIALIZABLE
+2024-10-17 09:17:23,906 DEBUG [database_manager.py:84] BEGIN TRANSACTION
+2024-10-17 09:17:23,907 DEBUG [database_manager.py:87] Executing query 1/3: UPDATE accounts SET balance = 25000.0, last_updated = NOW() WHERE account_number = 'ACC10...
+2024-10-17 09:17:23,920 DEBUG [database_manager.py:87] Executing query 2/3: UPDATE accounts SET balance = 75000.0, last_updated = NOW() WHERE account_number = 'ACC20...
+2024-10-17 09:17:35,935 ERROR [database_manager.py:93] Lock timeout after 12.01s for query: UPDATE accounts SET balance = 75000.0, last_updated = NOW() WHERE account_number = 'ACC20
+2024-10-17 09:17:35,940 ERROR [database_manager.py:105] Transaction failed: Lock acquisition timeout on query 2
+Traceback (most recent call last):
+  File "/app/dummy_data/codebase/database_manager.py", line 91, in execute_transaction
+    acquired = self._acquire_lock(query, timeout=self.LOCK_TIMEOUT)
+  File "/app/dummy_data/codebase/database_manager.py", line 114, in _acquire_lock
+    raise Exception(f"Lock acquisition timeout on query {i+1}")
+Exception: Lock acquisition timeout on query 2
+2024-10-17 09:17:35,941 DEBUG [database_manager.py:106] ROLLBACK TRANSACTION
+2024-10-17 09:17:35,945 WARNING [transaction_handler.py:105] ALERT: Transaction PMT20241017091723 failed - Lock acquisition timeout on query 2
+
+2024-10-17 09:18:45,123 INFO [payment_service.py:27] Processing payment PMT20241017091845: $3200.75 from ACC10567 to ACC20890
+2024-10-17 09:18:45,130 INFO [transaction_handler.py:24] Executing transfer PMT20241017091845: $3200.75 from ACC10567 to ACC20890
+2024-10-17 09:18:45,135 INFO [database_manager.py:79] Starting transaction with 3 queries, isolation=SERIALIZABLE
+2024-10-17 09:18:45,140 DEBUG [database_manager.py:84] BEGIN TRANSACTION
+2024-10-17 09:18:45,145 DEBUG [database_manager.py:87] Executing query 1/3: UPDATE accounts SET balance = 46799.25, last_updated = NOW() WHERE account_number = 'ACC10...
+2024-10-17 09:18:45,160 DEBUG [database_manager.py:87] Executing query 2/3: UPDATE accounts SET balance = 53200.75, last_updated = NOW() WHERE account_number = 'ACC20...
+2024-10-17 09:18:45,175 DEBUG [database_manager.py:87] Executing query 3/3: INSERT INTO payments (payment_id, account_from, account_to, amount, status, timestamp) VALUES ('PMT20...
+2024-10-17 09:18:45,190 DEBUG [database_manager.py:103] COMMIT TRANSACTION
+2024-10-17 09:18:45,191 INFO [database_manager.py:104] Transaction completed successfully
+2024-10-17 09:18:45,195 INFO [transaction_handler.py:58] Transfer PMT20241017091845 completed successfully
+2024-10-17 09:18:45,200 INFO [payment_service.py:40] Payment PMT20241017091845 completed successfully

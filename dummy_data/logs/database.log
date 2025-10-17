@@ -1,0 +1,66 @@
+2024-10-17 09:15:45,271 [DB-POOL] INFO: Connection pool status: 1/10 active connections
+2024-10-17 09:15:45,272 [DB-EXEC] DEBUG: Acquiring lock on table 'accounts' for account ACC10234
+2024-10-17 09:15:45,273 [DB-LOCK] INFO: Lock acquired on row: accounts.ACC10234 [WRITE LOCK]
+2024-10-17 09:15:45,285 [DB-LOCK] INFO: Lock released on row: accounts.ACC10234
+2024-10-17 09:15:45,286 [DB-EXEC] DEBUG: Acquiring lock on table 'accounts' for account ACC20567
+2024-10-17 09:15:45,287 [DB-LOCK] WARNING: Lock contention detected on row: accounts.ACC20567
+2024-10-17 09:15:45,288 [DB-LOCK] INFO: Waiting for lock on row: accounts.ACC20567 (held by transaction TXN-8845)
+2024-10-17 09:15:50,290 [DB-LOCK] WARNING: Still waiting for lock on row: accounts.ACC20567 (5.0s elapsed)
+2024-10-17 09:15:55,295 [DB-LOCK] WARNING: Still waiting for lock on row: accounts.ACC20567 (10.0s elapsed)
+2024-10-17 09:15:57,301 [DB-LOCK] ERROR: Lock timeout exceeded (12.01s) on row: accounts.ACC20567
+2024-10-17 09:15:57,302 [DB-ERROR] CRITICAL: InnoDB: Deadlock detected between transactions
+  Transaction 1 (TXN-9123): Holds lock on accounts.ACC10234, waiting for accounts.ACC20567
+  Transaction 2 (TXN-8845): Holds lock on accounts.ACC20567, waiting for accounts.ACC10234
+2024-10-17 09:15:57,303 [DB-ROLLBACK] INFO: Rolling back transaction TXN-9123 (victim selected by InnoDB)
+2024-10-17 09:15:57,305 [DB-POOL] INFO: Connection returned to pool: conn-1 (active: 0/10)
+
+2024-10-17 09:16:12,448 [DB-POOL] WARNING: Connection pool utilization: 8/10 (80%)
+2024-10-17 09:16:12,449 [DB-POOL] INFO: Attempting to acquire connection from pool
+2024-10-17 09:16:12,450 [DB-POOL] INFO: Connection acquired: conn-8 (active: 8/10)
+2024-10-17 09:16:15,455 [DB-POOL] WARNING: Connection pool utilization: 9/10 (90%)
+2024-10-17 09:16:18,460 [DB-POOL] CRITICAL: Connection pool exhausted: 10/10 (100%)
+2024-10-17 09:16:18,461 [DB-POOL] ERROR: No available connections in pool
+2024-10-17 09:16:18,462 [DB-POOL] INFO: Active connections details:
+  conn-1: held for 32.1s, query: SELECT * FROM accounts WHERE status='ACTIVE' FOR UPDATE
+  conn-2: held for 28.5s, query: UPDATE accounts SET balance = 45000.0 WHERE account_number = 'ACC10111'
+  conn-3: held for 25.2s, query: BEGIN TRANSACTION
+  conn-4: held for 22.8s, query: UPDATE accounts SET balance = 52000.0 WHERE account_number = 'ACC10222'
+  conn-5: held for 19.3s, query: SELECT balance FROM accounts WHERE account_number = 'ACC10333' FOR UPDATE
+  conn-6: held for 15.7s, query: INSERT INTO transaction_log VALUES (...)
+  conn-7: held for 12.1s, query: UPDATE accounts SET balance = 38000.0 WHERE account_number = 'ACC10444'
+  conn-8: held for 8.5s, query: SELECT balance FROM accounts WHERE account_number = 'ACC10345' FOR UPDATE
+  conn-9: held for 5.2s, query: BEGIN TRANSACTION
+  conn-10: held for 2.8s, query: UPDATE accounts SET last_updated = NOW() WHERE account_number = 'ACC10555'
+2024-10-17 09:16:20,465 [DB-POOL] WARNING: Connection request queued (queue size: 1)
+2024-10-17 09:16:25,470 [DB-POOL] WARNING: Connection request queued (queue size: 3)
+2024-10-17 09:16:30,475 [DB-POOL] WARNING: Connection request queued (queue size: 5)
+2024-10-17 09:16:35,480 [DB-POOL] WARNING: Connection request queued (queue size: 8)
+2024-10-17 09:16:42,460 [DB-ERROR] CRITICAL: Connection timeout: Client waited 30.0s for available connection
+2024-10-17 09:16:42,461 [DB-POOL] ERROR: Connection request failed after timeout
+2024-10-17 09:16:42,462 [DB-METRICS] WARNING: Pool exhaustion event #3 in last 5 minutes
+
+2024-10-17 09:17:23,905 [DB-POOL] INFO: Connection pool status: 6/10 active connections
+2024-10-17 09:17:23,906 [DB-EXEC] INFO: Starting SERIALIZABLE transaction TXN-9445
+2024-10-17 09:17:23,907 [DB-LOCK] INFO: Lock acquired on row: accounts.ACC10456 [WRITE LOCK]
+2024-10-17 09:17:23,920 [DB-EXEC] DEBUG: Query 1/3 executed successfully
+2024-10-17 09:17:23,921 [DB-LOCK] DEBUG: Attempting to acquire lock on row: accounts.ACC20789
+2024-10-17 09:17:23,922 [DB-LOCK] WARNING: Lock contention detected on row: accounts.ACC20789
+2024-10-17 09:17:23,923 [DB-LOCK] INFO: Waiting for lock on row: accounts.ACC20789 (held by transaction TXN-9234)
+2024-10-17 09:17:28,925 [DB-LOCK] WARNING: Still waiting for lock on row: accounts.ACC20789 (5.0s elapsed)
+2024-10-17 09:17:33,930 [DB-LOCK] WARNING: Still waiting for lock on row: accounts.ACC20789 (10.0s elapsed)
+2024-10-17 09:17:35,935 [DB-LOCK] ERROR: Lock timeout exceeded (12.01s) on row: accounts.ACC20789
+2024-10-17 09:17:35,936 [DB-ERROR] ERROR: Lock wait timeout exceeded; try restarting transaction
+2024-10-17 09:17:35,937 [DB-ROLLBACK] INFO: Rolling back transaction TXN-9445
+2024-10-17 09:17:35,940 [DB-POOL] INFO: Connection returned to pool: conn-3 (active: 5/10)
+
+2024-10-17 09:18:45,135 [DB-POOL] INFO: Connection pool status: 3/10 active connections
+2024-10-17 09:18:45,136 [DB-EXEC] INFO: Starting SERIALIZABLE transaction TXN-9678
+2024-10-17 09:18:45,140 [DB-LOCK] INFO: Lock acquired on row: accounts.ACC10567 [WRITE LOCK]
+2024-10-17 09:18:45,145 [DB-EXEC] DEBUG: Query 1/3 executed successfully (15ms)
+2024-10-17 09:18:45,146 [DB-LOCK] INFO: Lock acquired on row: accounts.ACC20890 [WRITE LOCK]
+2024-10-17 09:18:45,160 [DB-EXEC] DEBUG: Query 2/3 executed successfully (14ms)
+2024-10-17 09:18:45,175 [DB-EXEC] DEBUG: Query 3/3 executed successfully (15ms)
+2024-10-17 09:18:45,190 [DB-COMMIT] INFO: Transaction TXN-9678 committed successfully
+2024-10-17 09:18:45,191 [DB-LOCK] INFO: All locks released for transaction TXN-9678
+2024-10-17 09:18:45,192 [DB-POOL] INFO: Connection returned to pool: conn-2 (active: 2/10)
+2024-10-17 09:18:45,195 [DB-METRICS] INFO: Transaction metrics: duration=55ms, queries=3, locks_acquired=2
