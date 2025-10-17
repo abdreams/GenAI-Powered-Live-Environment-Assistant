@@ -36,6 +36,7 @@ st.markdown("""
         padding: 1rem;
         margin: 1rem 0;
         border-radius: 4px;
+        color: #000000;
     }
     .success-box {
         background-color: #e8f5e9;
@@ -43,12 +44,15 @@ st.markdown("""
         padding: 1rem;
         margin: 1rem 0;
         border-radius: 4px;
+        color: #000000;
     }
     .code-highlight {
         background-color: #fff3cd;
         border-left: 3px solid #ff9800;
         padding: 0.5rem;
         margin: 0.2rem 0;
+        color: #000000;
+        font-family: monospace;
     }
     .anomaly-critical {
         color: #d32f2f;
@@ -60,6 +64,7 @@ st.markdown("""
     }
     .anomaly-medium {
         color: #ffa726;
+        font-weight: bold;
     }
     .metric-card {
         background-color: #f5f5f5;
