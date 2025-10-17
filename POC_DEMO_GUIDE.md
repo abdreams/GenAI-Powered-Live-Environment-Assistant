@@ -1,11 +1,13 @@
 # 🚀 POC Demo Guide - GenAI Live Environment Assistant
 
 ## Overview
+
 This is an enterprise-grade POC showcasing AI-powered production monitoring and root cause analysis for banking/payment systems.
 
 ## 🎯 Key Features Demonstrated
 
 ### 1. **💬 AI Assistant Tab** (Main Demo Focus)
+
 - **Conversational Interface**: Ask natural language questions about production issues
 - **Sample Questions to Demo**:
   - "What's causing the high error rate in payment service?"
@@ -15,12 +17,14 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
   - "What's causing the connection pool exhaustion?"
 
 ### 2. **📊 Live Dashboard Tab**
+
 - **Real-time Anomaly Detection**: Shows 20+ anomalies detected automatically
 - **System Metrics**: Live health indicators
 - **Service Status**: Multi-service health monitoring
 - **Integration Status**: Shows connected data sources
 
 ### 3. **🔍 Deep Dive Analysis Tab**
+
 - Transaction flow analysis
 - Database performance deep dive
 - Error pattern recognition
@@ -29,12 +33,14 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
 ## 🎨 Visual Highlights
 
 ### Top Metrics Bar
+
 - System Health: 92%
 - Active Alerts: 7
 - Avg Response Time: 245ms
 - Uptime: 99.8%
 
 ### Sidebar Integrations (Mock - For Demo)
+
 - ✅ **AppDynamics** - Connected (APM monitoring)
 - ✅ **Splunk** - Connected (Log aggregation)
 - ✅ **SQL Server** - Connected (Database logs)
@@ -43,6 +49,7 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
 - 🟡 **Datadog** - Standby (Monitoring)
 
 ### Service Health Status
+
 - 🟡 **Payment Service**: Degraded (98.2% uptime, 12 errors)
 - 🔴 **Database Service**: Critical (99.1% uptime, 8 errors)
 - 🟢 **Auth Service**: Healthy (99.9% uptime, 0 errors)
@@ -51,24 +58,27 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
 ## 📋 Demo Script
 
 ### Step 1: Show Dashboard (15 seconds)
+
 1. Open the app → Navigate to **"Live Dashboard"** tab
 2. Point out real-time anomaly detection showing 20+ issues
 3. Highlight service health status showing degraded/critical services
 
 ### Step 2: Show Integrations (10 seconds)
+
 1. Point to sidebar showing connected data sources
 2. Mention: "Connects to AppDynamics, Splunk, SQL Server, etc."
 
 ### Step 3: AI Assistant Demo (2-3 minutes)
+
 1. Go to **"Ask AI Assistant"** tab
-2. Type in text area: *"What's causing the database connection pool exhaustion?"*
+2. Type in text area: _"What's causing the database connection pool exhaustion?"_
 3. Click **"🚀 Analyze"**
 4. Show AI analyzing logs, metrics, and code
 5. Point out results:
    - **Error Logs**: Shows actual error traces
    - **Anomalies**: 20 detected issues with severity levels
    - **Code Context**: Maps errors to specific code lines
-   - **AI Analysis**: 
+   - **AI Analysis**:
      - Root cause identified
      - Impact assessment
      - Technical details
@@ -77,6 +87,7 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
      - Monitoring recommendations
 
 ### Step 4: Show Code Mapping (30 seconds)
+
 1. Expand code context sections
 2. Show how errors are mapped to:
    - `database_manager.py` line 91 (lock timeout)
@@ -84,6 +95,7 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
    - `payment_service.py` line 44 (processing error)
 
 ### Step 5: Q&A Examples
+
 **Q**: "How does it know which code caused the issue?"
 **A**: "AI parses stack traces from logs and maps them to the actual codebase, showing exact file, function, and line numbers"
 
@@ -96,18 +108,22 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
 ## 🎯 Value Proposition Talking Points
 
 1. **Reduces MTTR** (Mean Time To Resolution)
+
    - From hours → minutes
    - AI analyzes 1000s of log lines instantly
 
 2. **Proactive Detection**
+
    - Catches issues before customers notice
    - Live dashboard with 20+ anomalies detected
 
 3. **Root Cause, Not Just Symptoms**
+
    - Maps errors to exact code locations
    - Provides fix recommendations
 
 4. **Enterprise Integrations**
+
    - Works with existing tools (AppD, Splunk, SQL)
    - No replacement needed
 
@@ -118,10 +134,12 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
 ## 🔧 Technical Setup (For Demo)
 
 ### Azure OpenAI Configuration
+
 - Collapse the "Azure OpenAI Settings" in sidebar (already configured via .env)
 - Or configure live during demo for transparency
 
 ### Sample Queries for Different Scenarios
+
 ```
 1. "Analyze the payment service errors"
 2. "Why are database transactions failing?"
@@ -138,6 +156,7 @@ This is an enterprise-grade POC showcasing AI-powered production monitoring and 
 - **6 Integration Points** (AppDynamics, Splunk, SQL, GitHub, Prometheus, Datadog)
 
 ## 🎬 Demo Duration
+
 - **Quick Demo**: 2-3 minutes (Dashboard + One AI query)
 - **Full Demo**: 5-7 minutes (All features + Code mapping)
 - **Deep Dive**: 10-15 minutes (With Q&A and technical discussion)
