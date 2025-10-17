@@ -292,7 +292,7 @@ def main():
         
         st.markdown("---")
         
-        st.header("� Data Source Integrations")
+        st.header(" Data Source Integrations")
         
         # Integration status
         integrations = {
