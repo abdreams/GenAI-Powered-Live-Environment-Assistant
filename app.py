@@ -88,6 +88,8 @@ def initialize_session_state():
         st.session_state.anomalies = None
     if 'log_content' not in st.session_state:
         st.session_state.log_content = None
+    if 'user_query' not in st.session_state:
+        st.session_state.user_query = ""
 
 
 def load_log_file(log_path: str) -> str:
@@ -250,160 +252,290 @@ def main():
     
     # Header
     st.markdown("<h1 class='main-header'>🤖 GenAI Live Environment Assistant</h1>", unsafe_allow_html=True)
-    st.markdown("**Intelligent error analysis and code mapping for production environments**")
+    st.markdown("**AI-Powered Production Monitoring & Root Cause Analysis**")
+    
+    # Top metrics dashboard
+    col1, col2, col3, col4 = st.columns(4)
+    with col1:
+        st.metric("🟢 System Health", "92%", "+2%")
+    with col2:
+        st.metric("⚠️ Active Alerts", "7", "-3")
+    with col3:
+        st.metric("📊 Avg Response Time", "245ms", "-15ms")
+    with col4:
+        st.metric("🔄 Uptime", "99.8%", "+0.1%")
+    
     st.markdown("---")
     
     # Sidebar
     with st.sidebar:
-        st.header("⚙️ Azure OpenAI Configuration")
+        st.header("⚙️ Configuration")
         
-        # Azure OpenAI Configuration
-        api_key = st.text_input("Azure OpenAI API Key", type="password", 
-                               help="Enter your Azure OpenAI API key")
-        
-        endpoint = st.text_input("Azure OpenAI Endpoint", 
-                                help="e.g., https://your-resource.openai.azure.com/")
-        
-        deployment_name = st.text_input("Deployment Name",
-                                       help="e.g., gpt-4 or gpt-4-turbo")
-        
-        # Load from environment if not provided
-        if not api_key:
-            api_key = os.getenv("AZURE_OPENAI_API_KEY", "")
-        if not endpoint:
-            endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "")
-        if not deployment_name:
-            deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "")
+        # Azure OpenAI Configuration (collapsible)
+        with st.expander("🔐 Azure OpenAI Settings", expanded=False):
+            api_key = st.text_input("API Key", type="password", 
+                                   help="Enter your Azure OpenAI API key")
+            
+            endpoint = st.text_input("Endpoint", 
+                                    help="e.g., https://your-resource.openai.azure.com/")
+            
+            deployment_name = st.text_input("Deployment",
+                                           help="e.g., gpt-4")
+            
+            # Load from environment if not provided
+            if not api_key:
+                api_key = os.getenv("AZURE_OPENAI_API_KEY", "")
+            if not endpoint:
+                endpoint = os.getenv("AZURE_OPENAI_ENDPOINT", "")
+            if not deployment_name:
+                deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT_NAME", "")
         
         st.markdown("---")
         
-        st.header("📊 Demo Scenarios")
+        st.header("� Data Source Integrations")
         
-        scenario = st.selectbox(
-            "Select Error Scenario",
-            [
-                "Scenario 1: SQL Lock Timeout & Deadlock",
-                "Scenario 2: Connection Pool Exhaustion",
-                "Scenario 3: All Errors Combined"
-            ]
+        # Integration status
+        integrations = {
+            "AppDynamics": {"icon": "📊", "status": "🟢 Connected", "color": "green"},
+            "Splunk": {"icon": "🔍", "status": "🟢 Connected", "color": "green"},
+            "SQL Server": {"icon": "🗄️", "status": "🟢 Connected", "color": "green"},
+            "GitHub": {"icon": "💻", "status": "🟢 Connected", "color": "green"},
+            "Prometheus": {"icon": "📈", "status": "🟡 Standby", "color": "orange"},
+            "Datadog": {"icon": "🐕", "status": "🟡 Standby", "color": "orange"},
+        }
+        
+        for name, info in integrations.items():
+            st.markdown(f"{info['icon']} **{name}**: {info['status']}")
+        
+        st.markdown("---")
+        
+        if st.button("⚙️ Configure Integrations", use_container_width=True):
+            st.info("Integration settings would open here")
+        
+        st.markdown("---")
+        
+        st.header("📅 Time Range")
+        time_range = st.selectbox(
+            "Select Range",
+            ["Last 15 minutes", "Last 1 hour", "Last 4 hours", "Last 24 hours", "Last 7 days"]
         )
         
         st.markdown("---")
         
-        st.markdown("---")
-        
-        st.header("📁 Data Sources")
-        st.info("""
-        **Logs**: Payment service & Database logs
-        
-        **Code**: Python payment processing system
-        
-        **Metrics**: System performance data
-        """)
-        
-        analyze_button = st.button("🔍 Analyze Error", type="primary", use_container_width=True)
+        st.header("🎯 Environment")
+        environment = st.selectbox(
+            "Select Environment",
+            ["🔴 Production", "🟡 Staging", "🟢 Development"]
+        )
     
-    # Main content
-    if not api_key or not endpoint or not deployment_name:
-        st.warning("⚠️ Please configure Azure OpenAI settings in the sidebar to start analysis")
-        st.info("""
-        ### Getting Started:
-        1. Enter your Azure OpenAI credentials in the sidebar:
-           - API Key
-           - Endpoint (e.g., https://your-resource.openai.azure.com/)
-           - Deployment Name (e.g., gpt-4)
-        2. Select an error scenario
-        3. Click "Analyze Error"
-        4. Review the AI-powered analysis and code mapping
-        
-        ### Don't have these values?
-        See the **AZURE_SETUP_GUIDE.md** for detailed instructions!
-        """)
-        return
+    # Main content area - Tabs
+    tab1, tab2, tab3 = st.tabs(["💬 Ask AI Assistant", "📊 Live Dashboard", "🔍 Deep Dive Analysis"])
     
-    if analyze_button:
-        with st.spinner("🔄 Analyzing logs and mapping to code..."):
-            try:
-                # Initialize components
+    with tab1:
+        st.markdown("### 💬 AI Assistant - Ask About Production Issues")
+        st.markdown("Ask questions about errors, anomalies, performance issues, or get recommendations...")
+        
+        # Chat-like interface
+        user_query = st.text_area(
+            "What would you like to know?",
+            placeholder="E.g., 'What's causing the high error rate in payment service?'\n'Analyze the recent database connection issues'\n'Show me the root cause of transaction failures'",
+            height=100
+        )
+        
+        col1, col2, col3 = st.columns([1, 1, 4])
+        with col1:
+            analyze_button = st.button("🚀 Analyze", type="primary", use_container_width=True)
+        with col2:
+            if st.button("🔄 Reset", use_container_width=True):
+                st.session_state.analysis_done = False
+                st.rerun()
+        
+        if not user_query and analyze_button:
+            st.warning("⚠️ Please enter a question or describe the issue you're investigating")
+        
+        if user_query and analyze_button:
+            if not api_key or not endpoint or not deployment_name:
+                st.error("❌ Please configure Azure OpenAI settings in the sidebar first!")
+            else:
+                with st.spinner("🔄 AI is analyzing logs, metrics, and code..."):
+                    try:
+                        # Initialize components
+                        code_mapper = CodeMapper(Config.CODEBASE_DIR)
+                        anomaly_detector = AnomalyDetector()
+                        log_analyzer = LogAnalyzerAgent(
+                            api_key=api_key,
+                            endpoint=endpoint,
+                            deployment_name=deployment_name,
+                            api_version=Config.AZURE_OPENAI_API_VERSION
+                        )
+                        
+                        # Load logs
+                        payment_log = load_log_file(os.path.join(Config.LOGS_DIR, "payment_service.log"))
+                        db_log = load_log_file(os.path.join(Config.LOGS_DIR, "database.log"))
+                        
+                        # Combine logs for analysis
+                        combined_log = f"=== Payment Service Log ===\n{payment_log}\n\n=== Database Log ===\n{db_log}"
+                        
+                        # Map error to code
+                        code_context = code_mapper.map_error_to_code(payment_log)
+                        
+                        # Detect anomalies
+                        log_anomalies = anomaly_detector.analyze_logs(combined_log)
+                        metrics_data = load_metrics_file(os.path.join(Config.METRICS_DIR, "system_metrics.json"))
+                        metric_anomalies = anomaly_detector.analyze_metrics(metrics_data)
+                        
+                        # Combine anomalies
+                        all_anomalies = {
+                            'total_anomalies': log_anomalies['total_anomalies'] + metric_anomalies['total_anomalies'],
+                            'anomalies': log_anomalies['anomalies'] + metric_anomalies['anomalies']
+                        }
+                        
+                        # Add user query to the analysis context
+                        analysis_context = f"User Question: {user_query}\n\n{combined_log}"
+                        
+                        # AI Analysis
+                        analysis = log_analyzer.analyze_error(
+                            log_content=analysis_context,
+                            code_context=code_context,
+                            metrics=all_anomalies
+                        )
+                        
+                        # Store in session state
+                        st.session_state.analysis_done = True
+                        st.session_state.current_analysis = analysis
+                        st.session_state.code_context = code_context
+                        st.session_state.anomalies = all_anomalies
+                        st.session_state.log_content = payment_log
+                        st.session_state.user_query = user_query
+                        
+                        st.success("✅ Analysis complete!")
+                        
+                    except Exception as e:
+                        st.error(f"❌ Error during analysis: {e}")
+                        import traceback
+                        st.code(traceback.format_exc())
+        
+        # Display results
+        if st.session_state.analysis_done and st.session_state.anomalies:
+            st.markdown("---")
+            st.markdown(f"### 🎯 Analysis Results for: *\"{st.session_state.get('user_query', 'Production Issues')}\"*")
+            
+            # Create two columns
+            col1, col2 = st.columns([1, 1])
+            
+            with col1:
+                if st.session_state.log_content:
+                    display_error_log(st.session_state.log_content)
+                st.markdown("---")
+                if st.session_state.anomalies:
+                    display_anomalies(st.session_state.anomalies)
+            
+            with col2:
+                if st.session_state.code_context:
+                    display_code_context(st.session_state.code_context)
+            
+            st.markdown("---")
+            display_ai_analysis(st.session_state.current_analysis)
+            
+            # Additional info
+            with st.expander("📚 View Full Code Files"):
                 code_mapper = CodeMapper(Config.CODEBASE_DIR)
-                anomaly_detector = AnomalyDetector()
-                log_analyzer = LogAnalyzerAgent(
-                    api_key=api_key,
-                    endpoint=endpoint,
-                    deployment_name=deployment_name,
-                    api_version=Config.AZURE_OPENAI_API_VERSION
-                )
+                files = code_mapper.get_all_files()
                 
-                # Load logs
+                selected_file = st.selectbox("Select a file to view", files)
+                if selected_file:
+                    content = code_mapper.get_file_content(selected_file)
+                    st.code(content, language='python')
+    
+    with tab2:
+        st.markdown("### 📊 Real-Time Monitoring Dashboard")
+        
+        # Anomalies Overview
+        col1, col2 = st.columns([2, 1])
+        
+        with col1:
+            st.markdown("#### 🚨 Recent Anomalies (Live)")
+            
+            # Load and display anomalies automatically
+            try:
                 payment_log = load_log_file(os.path.join(Config.LOGS_DIR, "payment_service.log"))
                 db_log = load_log_file(os.path.join(Config.LOGS_DIR, "database.log"))
+                combined_log = f"{payment_log}\n{db_log}"
                 
-                # Combine logs for analysis
-                combined_log = f"=== Payment Service Log ===\n{payment_log}\n\n=== Database Log ===\n{db_log}"
-                
-                # Map error to code
-                code_context = code_mapper.map_error_to_code(payment_log)
-                
-                # Detect anomalies
+                anomaly_detector = AnomalyDetector()
                 log_anomalies = anomaly_detector.analyze_logs(combined_log)
                 metrics_data = load_metrics_file(os.path.join(Config.METRICS_DIR, "system_metrics.json"))
                 metric_anomalies = anomaly_detector.analyze_metrics(metrics_data)
                 
-                # Combine anomalies
                 all_anomalies = {
                     'total_anomalies': log_anomalies['total_anomalies'] + metric_anomalies['total_anomalies'],
                     'anomalies': log_anomalies['anomalies'] + metric_anomalies['anomalies']
                 }
                 
-                # AI Analysis
-                analysis = log_analyzer.analyze_error(
-                    log_content=combined_log,
-                    code_context=code_context,
-                    metrics=all_anomalies
-                )
-                
-                # Store in session state
-                st.session_state.analysis_done = True
-                st.session_state.current_analysis = analysis
-                st.session_state.code_context = code_context
-                st.session_state.anomalies = all_anomalies
-                st.session_state.log_content = payment_log
-                
-                st.success("✅ Analysis complete!")
+                # Display top 15 anomalies
+                for i, anomaly in enumerate(all_anomalies.get('anomalies', [])[:15], 1):
+                    severity = anomaly.get('severity', 'UNKNOWN')
+                    
+                    if 'message' in anomaly:
+                        message = anomaly['message']
+                    elif 'keyword' in anomaly:
+                        message = f"Detected '{anomaly['keyword']}' pattern"
+                    else:
+                        message = f"{anomaly.get('type', 'Unknown')} anomaly"
+                    
+                    time = anomaly.get('time') or anomaly.get('timestamp', 'unknown')
+                    
+                    severity_emoji = "🔴" if severity == "CRITICAL" else "🟠" if severity == "HIGH" else "🟡"
+                    st.markdown(f"{severity_emoji} **[{severity}]** {message} • *{time}*")
                 
             except Exception as e:
-                st.error(f"❌ Error during analysis: {e}")
-                import traceback
-                st.code(traceback.format_exc())
-    
-    # Display results if analysis is done
-    if st.session_state.analysis_done and st.session_state.anomalies:
-        # Create two columns
-        col1, col2 = st.columns([1, 1])
-        
-        with col1:
-            if st.session_state.log_content:
-                display_error_log(st.session_state.log_content)
-            st.markdown("---")
-            if st.session_state.anomalies:
-                display_anomalies(st.session_state.anomalies)
+                st.error(f"Error loading dashboard data: {e}")
         
         with col2:
-            if st.session_state.code_context:
-                display_code_context(st.session_state.code_context)
+            st.markdown("#### 📈 System Stats")
+            st.metric("Error Rate", "12.5%", "↑ 3.2%", delta_color="inverse")
+            st.metric("Active Connections", "8/10", "↑ 2")
+            st.metric("Queue Size", "5", "↑ 3", delta_color="inverse")
+            st.metric("Avg Lock Time", "8.2s", "↑ 2.1s", delta_color="inverse")
+            
+            st.markdown("---")
+            st.markdown("#### 🎯 Top Issues")
+            st.markdown("1. 🔴 Connection Pool")
+            st.markdown("2. 🔴 Lock Timeouts")
+            st.markdown("3. 🟠 Slow Queries")
+            st.markdown("4. 🟡 High Memory")
         
         st.markdown("---")
-        display_ai_analysis(st.session_state.current_analysis)
         
-        # Additional info
-        with st.expander("📚 View Full Code Files"):
-            code_mapper = CodeMapper(Config.CODEBASE_DIR)
-            files = code_mapper.get_all_files()
-            
-            selected_file = st.selectbox("Select a file to view", files)
-            if selected_file:
-                content = code_mapper.get_file_content(selected_file)
-                st.code(content, language='python')
+        # Service Health
+        st.markdown("#### 🏥 Service Health Status")
+        
+        services = [
+            {"name": "Payment Service", "status": "🟡 Degraded", "uptime": "98.2%", "errors": "12"},
+            {"name": "Database Service", "status": "🔴 Critical", "uptime": "99.1%", "errors": "8"},
+            {"name": "Auth Service", "status": "🟢 Healthy", "uptime": "99.9%", "errors": "0"},
+            {"name": "Notification Service", "status": "🟢 Healthy", "uptime": "99.8%", "errors": "1"},
+        ]
+        
+        cols = st.columns(4)
+        for i, service in enumerate(services):
+            with cols[i]:
+                st.markdown(f"**{service['name']}**")
+                st.markdown(f"{service['status']}")
+                st.markdown(f"Uptime: {service['uptime']}")
+                st.markdown(f"Errors: {service['errors']}")
+    
+    with tab3:
+        st.markdown("### 🔍 Deep Dive Analysis")
+        st.info("💡 Use the **AI Assistant** tab to analyze specific issues, or select a service below for detailed analysis")
+        
+        analysis_type = st.selectbox(
+            "Select Analysis Type",
+            ["Transaction Flow Analysis", "Database Performance", "Error Pattern Recognition", "Capacity Planning"]
+        )
+        
+        if st.button("📊 Run Deep Analysis", type="primary"):
+            st.info("This would trigger a comprehensive deep-dive analysis with the selected focus area")
 
 
 if __name__ == "__main__":
